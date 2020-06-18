@@ -1,7 +1,6 @@
-graph = {'a':{'b':982,'c':421,'d':1431,'e':923,'f':1416,'g':946},'b':{'a':982,'d':632},
-         'c':{'a':421,'g':624},'d':{'a':1431,'b':632,'g':561},'e':{'a':923,'f':519},'f':{'a':1416,'e':519},'g':{'a':946,'c':624,'d':561}}
+graph = {'a':{'b':4,'c':3},'b':{'a':4,'e':12,'f':5},'c':{'a':3,'d':7,'e':10},'d':{'c':7,'e':2},'e':{'b':12,'c':10,'d':2,'g':5},'f':{'b':5,'g':16},'g':{'e':5,'f':16}}
  
-def alg(graph,start,goal):
+def alg(graph,asal,tujuan):
     shortest_distance = {}
     preD = {}
     unseenNodes = graph
@@ -9,7 +8,7 @@ def alg(graph,start,goal):
     path = []
     for node in unseenNodes:
         shortest_distance[node] = infinity
-    shortest_distance[start] = 0
+    shortest_distance[asal] = 0
  
     while unseenNodes:
         minNode = None
@@ -25,22 +24,22 @@ def alg(graph,start,goal):
                 preD[childNode] = minNode
         unseenNodes.pop(minNode)
  
-    currentNode = goal
-    while currentNode != start:
+    currentNode = tujuan
+    while currentNode != asal:
         try:
             path.insert(0,currentNode)
             currentNode = preD[currentNode]
         except KeyError:
             print('Path not reachable')
             break
-    path.insert(0,start)
-    if shortest_distance[goal] != infinity:
-        print('Shortest distance is ' + str(shortest_distance[goal]) + ' km')
-        print('And the path is ' + str(path))
+    path.insert(0,asal)
+    if shortest_distance[tujuan] != infinity:
+        print('Jaraknya ' + str(shortest_distance[tujuan]) + ' m')
+        print('Jalurnya melewati  ' + str(path))
 
-print('Airport List:')
-print('a. CGK\nb. DPS\nc. SRG\nd. UPG\ne. PDG\nf. MES\ng. BDJ')
+print('Daftar Wahana:')
+print('a. Kandang Harimau\nb. Kandang Singa\nc. Kandang Gajah\nd. Kandang Panda\ne. Kandang Jerapah\nf. Kandang Beruang\ng. Kandang Llama')
 print('')
-x = input('Source: ')
-y = input('Destination: ')
+x = input('Asal: ')
+y = input('Tujuan: ')
 alg(graph, x, y)
